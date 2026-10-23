@@ -189,8 +189,6 @@
             font-weight: 700;
         }
 
-
-
         .balance-value {
             color: #1745a5;
             font-size: 1.35rem;
@@ -250,867 +248,833 @@
     </style>
 </head>
 <body>
-<main>
-    <header>
-        <h1>Bank Account Management</h1>
-        <p>Create an account or check an existing one.</p>
-    </header>
+    <main>
+        <header>
+            <h1>Bank Account Management</h1>
+            <p>Create an account or check an existing one.</p>
+        </header>
 
-    <p id="persistence-message" role="status" aria-live="polite"></p>
-    <p class="muted notice">Privacy notice: this demo has no login or identity verification. Anyone using this browser profile may access its saved data. Do not use real banking or personal information.</p>
+        <p id="persistence-message" role="status" aria-live="polite"></p>
+        <p class="muted notice">Privacy notice: this demo has no login or identity verification. Anyone using this browser profile may access its saved data. Do not use real banking or personal information.</p>
 
-    <section class="card" id="home-section" aria-labelledby="home-heading">
-        <h2 id="home-heading">What would you like to do?</h2>
-        <div class="home-options">
-            <button id="open-add" type="button">Add account</button>
-            <button id="open-check" type="button">Check account</button>
-            <button id="open-apply" type="button">Apply for a product</button>
-            <button id="open-convert" type="button">Currency convert</button>
-        </div>
-    </section>
-
-    <section class="card" id="create-section" aria-labelledby="create-heading" hidden>
-        <h2 id="create-heading">Add a new account</h2>
-        <form id="create-form">
-            <label for="holder-name">Account holder name</label>
-            <input id="holder-name" name="holderName" type="text" maxlength="100"
-                   autocomplete="name" required>
-
-            <label for="account-number">Account number</label>
-            <input id="account-number" name="accountNumber" type="text" maxlength="20"
-                   inputmode="numeric" pattern="[0-9]{1,20}"
-                   title="Enter 1 to 20 digits." required>
-
-            <label for="account-country">Country</label>
-            <select id="account-country" name="country" required>
-                <option value="">Select country</option>
-            </select>
-
-            <label for="contact-number">Contact number</label>
-            <div class="country-contact">
-                <input id="contact-prefix" type="text" aria-label="Country dialing code"
-                       readonly placeholder="+code">
-                <input id="contact-number" name="contactNumber" type="tel" maxlength="12"
-                       inputmode="numeric" autocomplete="tel-national"
-                       pattern="[0-9]{6,12}" title="Enter 6 to 12 digits, without the country code."
-                       placeholder="National number only" required>
+        <section class="card" id="home-section" aria-labelledby="home-heading">
+            <h2 id="home-heading">What would you like to do?</h2>
+            <div class="home-options">
+                <button id="open-add" type="button">Add account</button>
+                <button id="open-check" type="button">Check account</button>
+                <button id="open-apply" type="button">Apply for a product</button>
+                <button id="open-convert" type="button">Currency convert</button>
             </div>
+        </section>
 
-            <label for="account-type">Account type</label>
-            <select id="account-type" name="accountType" required>
-                <option value="">Select account type</option>
-                <option value="Savings">Savings</option>
-                <option value="Current">Current</option>
-                <option value="Zero Balance">Zero Balance</option>
-            </select>
+        <section class="card" id="create-section" aria-labelledby="create-heading" hidden>
+            <h2 id="create-heading">Add a new account</h2>
+            <form id="create-form">
+                <label for="holder-name">Account holder name</label>
+                <input id="holder-name" name="holderName" type="text" maxlength="100" autocomplete="name" required>
 
-            <label for="opening-balance">Opening balance</label>
-            <input id="opening-balance" name="openingBalance" type="number"
-                   min="0" step="0.01" inputmode="decimal" placeholder="For example, 1000.00"
-                   required>
-            <p id="opening-balance-guidance" class="muted" aria-live="polite">
-                Select an account type to see its minimum opening balance.
-            </p>
+                <label for="account-number">Account number</label>
+                <input id="account-number" name="accountNumber" type="text" maxlength="20" inputmode="numeric" pattern="[0-9]{1,20}" title="Enter 1 to 20 digits." required>
 
-            <button class="form-button" type="submit">Add account</button>
-        </form>
-        <p id="create-message" role="status" aria-live="polite"></p>
-        <div class="page-actions">
-            <button id="add-home" type="button">Back to options</button>
-        </div>
-    </section>
+                <label for="account-country">Country</label>
+                <select id="account-country" name="country" required>
+                    <option value="">Select country</option>
+                </select>
 
-    <section class="card" id="lookup-section" aria-labelledby="lookup-heading" hidden>
-        <h2 id="lookup-heading">Check an existing account</h2>
-        <form id="lookup-form">
-            <label for="lookup-country">Country</label>
-            <select id="lookup-country" name="country" required>
-                <option value="">Select country</option>
-            </select>
+                <label for="contact-number">Contact number</label>
+                <div class="country-contact">
+                    <input id="contact-prefix" type="text" aria-label="Country dialing code" readonly placeholder="+code">
+                    <input id="contact-number" name="contactNumber" type="tel" maxlength="12" inputmode="numeric" autocomplete="tel-national" pattern="[0-9]{6,12}" title="Enter 6 to 12 digits, without the country code." placeholder="National number only" required>
+                </div>
 
-            <label for="lookup-name">Account holder name</label>
-            <input id="lookup-name" name="holderName" type="text" maxlength="100"
-                   autocomplete="off" required>
+                <label for="account-type">Account type</label>
+                <select id="account-type" name="accountType" required>
+                    <option value="">Select account type</option>
+                    <option value="Savings">Savings</option>
+                    <option value="Current">Current</option>
+                    <option value="Zero Balance">Zero Balance</option>
+                </select>
 
-            <label for="lookup-account-number">Account number</label>
-            <input id="lookup-account-number" name="accountNumber" type="text" maxlength="20"
-                   inputmode="numeric" pattern="[0-9]{1,20}"
-                   title="Enter 1 to 20 digits." required>
+                <label for="opening-balance">Opening balance</label>
+                <input id="opening-balance" name="openingBalance" type="number" min="0" step="0.01" inputmode="decimal" placeholder="For example, 1000.00" required>
+                <p id="opening-balance-guidance" class="muted" aria-live="polite">Select an account type to see its minimum opening balance.</p>
 
-            <label for="lookup-contact">Registered contact number</label>
-            <input id="lookup-contact" name="contactNumber" type="tel" maxlength="19"
-                   inputmode="tel" autocomplete="off"
-                   placeholder="Include country code, e.g. +1 5551234567" required>
-            <button class="form-button" type="submit">Find account</button>
-        </form>
-        <p id="lookup-message" role="status" aria-live="polite"></p>
-        <div class="page-actions">
-            <button id="check-home" type="button">Back to options</button>
-        </div>
-    </section>
-
-    <section class="card" id="convert-section" aria-labelledby="convert-heading" hidden>
-        <h2 id="convert-heading">Currency converter</h2>
-        <p class="muted">Select countries to convert currencies using sample rates.</p>
-        <form id="convert-form">
-            <label for="convert-amount">Amount</label>
-            <input id="convert-amount" name="amount" type="number" min="0.01"
-                   step="0.01" inputmode="decimal" required>
-
-            <label for="convert-from">From country</label>
-            <select id="convert-from" name="fromCountry" required>
-                <option value="">Select country</option>
-            </select>
-
-            <label for="convert-to">To country</label>
-            <select id="convert-to" name="toCountry" required>
-                <option value="">Select country</option>
-            </select>
-
-            <button class="form-button" type="submit">Convert currency</button>
-        </form>
-        <p id="convert-result" class="currency-result" role="status" aria-live="polite" hidden></p>
-        <p class="muted notice">Rates are fixed illustrative demo values, not live exchange rates. Do not use for payments, trades, or financial decisions. No external API is used.</p>
-        <div class="page-actions">
-            <button id="convert-home" type="button">Back to options</button>
-        </div>
-    </section>
-
-    <section class="card" id="apply-section" aria-labelledby="apply-heading" hidden>
-        <h2 id="apply-heading">Apply for a bank product</h2>
-        <p class="muted">Choose an account type and product to see the demo eligibility and application process. Account numbers are not requested here.</p>
-        <form id="apply-form">
-            <label for="apply-account-type">Account type</label>
-            <select id="apply-account-type" name="accountType" required>
-                <option value="">Select an account type</option>
-                <option value="Savings">Savings</option>
-                <option value="Current">Current</option>
-                <option value="Zero Balance">Zero Balance</option>
-            </select>
-
-            <label for="apply-product">Product</label>
-            <select id="apply-product" name="product" required>
-                <option value="">Select a product</option>
-                <option value="Debit Card">Debit Card</option>
-                <option value="Credit Card">Credit Card</option>
-                <option value="Cheque Book">Cheque Book</option>
-            </select>
-            <p id="apply-message" role="status" aria-live="polite"></p>
-
-            <div id="apply-process" class="apply-process" hidden aria-live="polite">
-                <h3 id="apply-process-heading"></h3>
-                <p id="apply-eligibility"></p>
-                <ol id="apply-steps"></ol>
+                <button class="form-button" type="submit">Add account</button>
+            </form>
+            <p id="create-message" role="status" aria-live="polite"></p>
+            <div class="page-actions">
+                <button id="add-home" type="button">Back to options</button>
             </div>
+        </section>
 
-            <button class="form-button" type="submit">Submit demo application</button>
-        </form>
-        <p class="muted notice">This is a demo only. It does not send a request to a real bank or approve or issue a product. Do not enter card numbers, PINs, passwords, or other sensitive information.</p>
-        <div class="page-actions">
-            <button id="apply-home" type="button">Back to options</button>
-        </div>
-    </section>
+        <section class="card" id="lookup-section" aria-labelledby="lookup-heading" hidden>
+            <h2 id="lookup-heading">Check an existing account</h2>
+            <form id="lookup-form">
+                <label for="lookup-country">Country</label>
+                <select id="lookup-country" name="country" required>
+                    <option value="">Select country</option>
+                </select>
 
-    <section class="card" id="account-section" aria-labelledby="account-heading" hidden>
-        <h2 id="account-heading">Account details</h2>
-        <dl class="account-summary">
-            <div>
-                <dt>Account holder</dt>
-                <dd id="display-name"></dd>
+                <label for="lookup-name">Account holder name</label>
+                <input id="lookup-name" name="holderName" type="text" maxlength="100" autocomplete="off" required>
+
+                <label for="lookup-account-number">Account number</label>
+                <input id="lookup-account-number" name="accountNumber" type="text" maxlength="20" inputmode="numeric" pattern="[0-9]{1,20}" title="Enter 1 to 20 digits." required>
+
+                <label for="lookup-contact">Registered contact number</label>
+                <input id="lookup-contact" name="contactNumber" type="tel" maxlength="19" inputmode="tel" autocomplete="off" placeholder="Include country code, e.g. +1 5551234567" required>
+                <button class="form-button" type="submit">Find account</button>
+            </form>
+            <p id="lookup-message" role="status" aria-live="polite"></p>
+            <div class="page-actions">
+                <button id="check-home" type="button">Back to options</button>
             </div>
-            <div>
-                <dt>Account number</dt>
-                <dd id="display-number"></dd>
+        </section>
+
+        <section class="card" id="convert-section" aria-labelledby="convert-heading" hidden>
+            <h2 id="convert-heading">Currency converter</h2>
+            <p class="muted">Select countries to convert currencies using sample rates.</p>
+            <form id="convert-form">
+                <label for="convert-amount">Amount</label>
+                <input id="convert-amount" name="amount" type="number" min="0.01" step="0.01" inputmode="decimal" required>
+
+                <label for="convert-from">From country</label>
+                <select id="convert-from" name="fromCountry" required>
+                    <option value="">Select country</option>
+                </select>
+
+                <label for="convert-to">To country</label>
+                <select id="convert-to" name="toCountry" required>
+                    <option value="">Select country</option>
+                </select>
+
+                <button class="form-button" type="submit">Convert currency</button>
+            </form>
+            <p id="convert-result" class="currency-result" role="status" aria-live="polite" hidden></p>
+            <p class="muted notice">Rates are fixed illustrative demo values, not live exchange rates. Do not use for payments, trades, or financial decisions. No external API is used.</p>
+            <div class="page-actions">
+                <button id="convert-home" type="button">Back to options</button>
             </div>
-            <div>
-                <dt>Account type</dt>
-                <dd id="display-type"></dd>
+        </section>
+
+        <section class="card" id="apply-section" aria-labelledby="apply-heading" hidden>
+            <h2 id="apply-heading">Apply for a bank product</h2>
+            <p class="muted">Choose an account type and product to see the demo eligibility and application process. Account numbers are not requested here.</p>
+            <form id="apply-form">
+                <label for="apply-account-type">Account type</label>
+                <select id="apply-account-type" name="accountType" required>
+                    <option value="">Select an account type</option>
+                    <option value="Savings">Savings</option>
+                    <option value="Current">Current</option>
+                    <option value="Zero Balance">Zero Balance</option>
+                </select>
+
+                <label for="apply-product">Product</label>
+                <select id="apply-product" name="product" required>
+                    <option value="">Select a product</option>
+                    <option value="Debit Card">Debit Card</option>
+                    <option value="Credit Card">Credit Card</option>
+                    <option value="Cheque Book">Cheque Book</option>
+                </select>
+                <p id="apply-message" role="status" aria-live="polite"></p>
+
+                <div id="apply-process" class="apply-process" hidden aria-live="polite">
+                    <h3 id="apply-process-heading"></h3>
+                    <p id="apply-eligibility"></p>
+                    <ol id="apply-steps"></ol>
+                </div>
+
+                <button class="form-button" type="submit">Submit demo application</button>
+            </form>
+            <p class="muted notice">This is a demo only. It does not send a request to a real bank or approve or issue a product. Do not enter card numbers, PINs, passwords, or other sensitive information.</p>
+            <div class="page-actions">
+                <button id="apply-home" type="button">Back to options</button>
             </div>
-            <div>
-                <dt>Country / currency</dt>
-                <dd id="display-country"></dd>
-            </div>
-            <div>
-                <dt>Registered contact</dt>
-                <dd id="display-contact"></dd>
-            </div>
-            <div>
-                <dt>Current balance</dt>
-                <dd class="balance-value" id="display-balance">$0.00</dd>
-            </div>
-        </dl>
+        </section>
 
-        <form id="transaction-form">
-            <label for="amount">Amount</label>
-            <input id="amount" name="amount" type="number" min="0.01" step="0.01"
-                   inputmode="decimal" placeholder="For example, 25.00" required>
+        <section class="card" id="account-section" aria-labelledby="account-heading" hidden>
+            <h2 id="account-heading">Account details</h2>
+            <dl class="account-summary">
+                <div>
+                    <dt>Account holder</dt>
+                    <dd id="display-name"></dd>
+                </div>
+                <div>
+                    <dt>Account number</dt>
+                    <dd id="display-number"></dd>
+                </div>
+                <div>
+                    <dt>Account type</dt>
+                    <dd id="display-type"></dd>
+                </div>
+                <div>
+                    <dt>Country / currency</dt>
+                    <dd id="display-country"></dd>
+                </div>
+                <div>
+                    <dt>Registered contact</dt>
+                    <dd id="display-contact"></dd>
+                </div>
+                <div>
+                    <dt>Current balance</dt>
+                    <dd class="balance-value" id="display-balance">$0.00</dd>
+                </div>
+            </dl>
 
-            <div class="transaction-actions">
-                <button type="submit" name="action" value="deposit">Deposit</button>
-                <button type="submit" name="action" value="withdraw">Withdraw</button>
-            </div>
-        </form>
-        <p id="message" role="status" aria-live="polite"></p>
-        <p class="muted notice">Accounts are saved in this browser on this device. This demo is not connected to a real bank or database.</p>
-    </section>
-</main>
+            <form id="transaction-form">
+                <label for="amount">Amount</label>
+                <input id="amount" name="amount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="For example, 25.00" required>
 
-<script>
-    "use strict";
+                <div class="transaction-actions">
+                    <button type="submit" name="action" value="deposit">Deposit</button>
+                    <button type="submit" name="action" value="withdraw">Withdraw</button>
+                </div>
+            </form>
+            <p id="message" role="status" aria-live="polite"></p>
+            <p class="muted notice">Accounts are saved in this browser on this device. This demo is not connected to a real bank or database.</p>
+        </section>
+    </main>
 
-    const createForm = document.getElementById("create-form");
-    const lookupForm = document.getElementById("lookup-form");
-    const transactionForm = document.getElementById("transaction-form");
-    const applyForm = document.getElementById("apply-form");
-    const homeSection = document.getElementById("home-section");
-    const createSection = document.getElementById("create-section");
-    const lookupSection = document.getElementById("lookup-section");
-    const applySection = document.getElementById("apply-section");
-    const convertSection = document.getElementById("convert-section");
-    const accountSection = document.getElementById("account-section");
-    const persistenceMessage = document.getElementById("persistence-message");
-    const nameInput = document.getElementById("holder-name");
-    const numberInput = document.getElementById("account-number");
-    const countryInput = document.getElementById("account-country");
-    const contactPrefixInput = document.getElementById("contact-prefix");
-    const contactNumberInput = document.getElementById("contact-number");
-    const accountTypeInput = document.getElementById("account-type");
-    const openingBalanceInput = document.getElementById("opening-balance");
-    const lookupCountryInput = document.getElementById("lookup-country");
-    const lookupNameInput = document.getElementById("lookup-name");
-    const lookupNumberInput = document.getElementById("lookup-account-number");
-    const lookupContactInput = document.getElementById("lookup-contact");
-    const applyAccountTypePicker = document.getElementById("apply-account-type");
-    const applyProductPicker = document.getElementById("apply-product");
-    const convertForm = document.getElementById("convert-form");
-    const convertAmountInput = document.getElementById("convert-amount");
-    const convertFromPicker = document.getElementById("convert-from");
-    const convertToPicker = document.getElementById("convert-to");
-    const convertResult = document.getElementById("convert-result");
-    const amountInput = document.getElementById("amount");
-    const message = document.getElementById("message");
-    const createMessage = document.getElementById("create-message");
-    const lookupMessage = document.getElementById("lookup-message");
-    const applyMessage = document.getElementById("apply-message");
-    const applyProcess = document.getElementById("apply-process");
+    <script>
+        "use strict";
 
-    const storageKey = "bankManagementAccounts";
-    const applicationStorageKey = "bankManagementApplications";
-    const accountTypes = ["Savings", "Current", "Zero Balance"];
-    const products = ["Debit Card", "Credit Card", "Cheque Book"];
-    const countries = [
-        { name: "Australia", currency: "AUD", dialCode: "+61", perUsd: 1.52 },
-        { name: "Bangladesh", currency: "BDT", dialCode: "+880", perUsd: 110 },
-        { name: "Canada", currency: "CAD", dialCode: "+1", perUsd: 1.36 },
-        { name: "China", currency: "CNY", dialCode: "+86", perUsd: 7.2 },
-        { name: "France", currency: "EUR", dialCode: "+33", perUsd: 0.92 },
-        { name: "Germany", currency: "EUR", dialCode: "+49", perUsd: 0.92 },
-        { name: "India", currency: "INR", dialCode: "+91", perUsd: 83 },
-        { name: "Ireland", currency: "EUR", dialCode: "+353", perUsd: 0.92 },
-        { name: "Italy", currency: "EUR", dialCode: "+39", perUsd: 0.92 },
-        { name: "Nepal", currency: "NPR", dialCode: "+977", perUsd: 133 },
-        { name: "New Zealand", currency: "NZD", dialCode: "+64", perUsd: 1.65 },
-        { name: "Pakistan", currency: "PKR", dialCode: "+92", perUsd: 278 },
-        { name: "Saudi Arabia", currency: "SAR", dialCode: "+966", perUsd: 3.75 },
-        { name: "Singapore", currency: "SGD", dialCode: "+65", perUsd: 1.34 },
-        { name: "South Africa", currency: "ZAR", dialCode: "+27", perUsd: 18.5 },
-        { name: "United Arab Emirates", currency: "AED", dialCode: "+971", perUsd: 3.67 },
-        { name: "United Kingdom", currency: "GBP", dialCode: "+44", perUsd: 0.79 },
-        { name: "United States", currency: "USD", dialCode: "+1", perUsd: 1 }
-    ];
-    const applications = [];
-    const minimumOpeningBalanceInCents = {
-        "Savings": 100000,
-        "Current": 1000000,
-        "Zero Balance": 0
-    };
-    const accounts = [];
-    let selectedAccountNumber = null;
-    let storageAvailable = true;
-    let applicationStorageAvailable = true;
+        const createForm = document.getElementById("create-form");
+        const lookupForm = document.getElementById("lookup-form");
+        const transactionForm = document.getElementById("transaction-form");
+        const applyForm = document.getElementById("apply-form");
+        const homeSection = document.getElementById("home-section");
+        const createSection = document.getElementById("create-section");
+        const lookupSection = document.getElementById("lookup-section");
+        const applySection = document.getElementById("apply-section");
+        const convertSection = document.getElementById("convert-section");
+        const accountSection = document.getElementById("account-section");
+        const persistenceMessage = document.getElementById("persistence-message");
+        const nameInput = document.getElementById("holder-name");
+        const numberInput = document.getElementById("account-number");
+        const countryInput = document.getElementById("account-country");
+        const contactPrefixInput = document.getElementById("contact-prefix");
+        const contactNumberInput = document.getElementById("contact-number");
+        const accountTypeInput = document.getElementById("account-type");
+        const openingBalanceInput = document.getElementById("opening-balance");
+        const lookupCountryInput = document.getElementById("lookup-country");
+        const lookupNameInput = document.getElementById("lookup-name");
+        const lookupNumberInput = document.getElementById("lookup-account-number");
+        const lookupContactInput = document.getElementById("lookup-contact");
+        const applyAccountTypePicker = document.getElementById("apply-account-type");
+        const applyProductPicker = document.getElementById("apply-product");
+        const convertForm = document.getElementById("convert-form");
+        const convertAmountInput = document.getElementById("convert-amount");
+        const convertFromPicker = document.getElementById("convert-from");
+        const convertToPicker = document.getElementById("convert-to");
+        const convertResult = document.getElementById("convert-result");
+        const amountInput = document.getElementById("amount");
+        const message = document.getElementById("message");
+        const createMessage = document.getElementById("create-message");
+        const lookupMessage = document.getElementById("lookup-message");
+        const applyMessage = document.getElementById("apply-message");
+        const applyProcess = document.getElementById("apply-process");
 
-    function setPersistenceError(text) {
-        persistenceMessage.textContent = text;
-        persistenceMessage.dataset.kind = "error";
-    }
+        const storageKey = "bankManagementAccounts";
+        const applicationStorageKey = "bankManagementApplications";
+        const accountTypes = ["Savings", "Current", "Zero Balance"];
+        const products = ["Debit Card", "Credit Card", "Cheque Book"];
+        const countries = [
+            { name: "Australia", currency: "AUD", dialCode: "+61", perUsd: 1.52 },
+            { name: "Bangladesh", currency: "BDT", dialCode: "+880", perUsd: 110 },
+            { name: "Canada", currency: "CAD", dialCode: "+1", perUsd: 1.36 },
+            { name: "China", currency: "CNY", dialCode: "+86", perUsd: 7.2 },
+            { name: "France", currency: "EUR", dialCode: "+33", perUsd: 0.92 },
+            { name: "Germany", currency: "EUR", dialCode: "+49", perUsd: 0.92 },
+            { name: "India", currency: "INR", dialCode: "+91", perUsd: 83 },
+            { name: "Ireland", currency: "EUR", dialCode: "+353", perUsd: 0.92 },
+            { name: "Italy", currency: "EUR", dialCode: "+39", perUsd: 0.92 },
+            { name: "Nepal", currency: "NPR", dialCode: "+977", perUsd: 133 },
+            { name: "New Zealand", currency: "NZD", dialCode: "+64", perUsd: 1.65 },
+            { name: "Pakistan", currency: "PKR", dialCode: "+92", perUsd: 278 },
+            { name: "Saudi Arabia", currency: "SAR", dialCode: "+966", perUsd: 3.75 },
+            { name: "Singapore", currency: "SGD", dialCode: "+65", perUsd: 1.34 },
+            { name: "South Africa", currency: "ZAR", dialCode: "+27", perUsd: 18.5 },
+            { name: "United Arab Emirates", currency: "AED", dialCode: "+971", perUsd: 3.67 },
+            { name: "United Kingdom", currency: "GBP", dialCode: "+44", perUsd: 0.79 },
+            { name: "United States", currency: "USD", dialCode: "+1", perUsd: 1 }
+        ];
 
-    function saveAccounts() {
-        if (!storageAvailable) {
-            return false;
+        const applications = [];
+        const minimumOpeningBalanceInCents = {
+            Savings: 100000,
+            Current: 1000000,
+            "Zero Balance": 0
+        };
+        const accounts = [];
+        let selectedAccountNumber = null;
+        let storageAvailable = true;
+        let applicationStorageAvailable = true;
+
+        function setPersistenceError(text) {
+            persistenceMessage.textContent = text;
+            persistenceMessage.dataset.kind = "error";
         }
 
-        try {
-            localStorage.setItem(storageKey, JSON.stringify(accounts));
-            return true;
-        } catch (error) {
-            setPersistenceError("Could not save account data in this browser. Your latest change was not saved.");
-            return false;
-        }
-    }
-
-    function loadAccounts() {
-        try {
-            const savedData = localStorage.getItem(storageKey);
-            if (savedData === null) {
-                return;
+        function saveAccounts() {
+            if (!storageAvailable) {
+                return false;
             }
 
-            const savedAccounts = JSON.parse(savedData);
-            if (!Array.isArray(savedAccounts) || savedAccounts.some(function (item) {
-                return !item
-                    || typeof item.holderName !== "string"
-                    || !item.holderName.trim()
-                    || typeof item.accountNumber !== "string"
-                    || !/^\d{1,20}$/.test(item.accountNumber)
-                    || !Number.isSafeInteger(item.balanceInCents)
-                    || item.balanceInCents < 0
-                    || (item.country !== undefined
-                        && !countries.some(function (country) {
+            try {
+                localStorage.setItem(storageKey, JSON.stringify(accounts));
+                return true;
+            } catch (error) {
+                setPersistenceError("Could not save account data in this browser. Your latest change was not saved.");
+                return false;
+            }
+        }
+
+        function loadAccounts() {
+            try {
+                const savedData = localStorage.getItem(storageKey);
+                if (savedData === null) {
+                    return;
+                }
+
+                const savedAccounts = JSON.parse(savedData);
+                if (!Array.isArray(savedAccounts) || savedAccounts.some(function (item) {
+                    return !item
+                        || typeof item.holderName !== "string"
+                        || !item.holderName.trim()
+                        || typeof item.accountNumber !== "string"
+                        || !/^\d{1,20}$/.test(item.accountNumber)
+                        || !Number.isSafeInteger(item.balanceInCents)
+                        || item.balanceInCents < 0
+                        || (item.country !== undefined && !countries.some(function (country) {
                             return country.name === item.country;
                         }))
-                    || (item.contactNumber !== undefined
-                        && typeof item.contactNumber !== "string")
-                    || (item.accountType !== undefined
-                        && !accountTypes.includes(item.accountType));
-            })) {
-                throw new Error("Saved account data has an invalid format.");
+                        || (item.contactNumber !== undefined && typeof item.contactNumber !== "string")
+                        || (item.accountType !== undefined && !accountTypes.includes(item.accountType));
+                })) {
+                    throw new Error("Saved account data has an invalid format.");
+                }
+
+                if (new Set(savedAccounts.map(function (item) {
+                    return item.accountNumber;
+                })).size !== savedAccounts.length) {
+                    throw new Error("Saved account data contains duplicate account numbers.");
+                }
+
+                savedAccounts.forEach(function (account) {
+                    if (!account.accountType) {
+                        account.accountType = "Savings";
+                    }
+                    if (!account.country) {
+                        account.country = "United States";
+                    }
+                    account.currencyCode = findCountry(account.country).currency;
+                    if (account.contactNumber === undefined) {
+                        account.contactNumber = "";
+                    }
+                });
+
+                accounts.push.apply(accounts, savedAccounts);
+            } catch (error) {
+                storageAvailable = false;
+                setPersistenceError("Could not load saved accounts from this browser. Existing data has not been changed.");
             }
-            if (new Set(savedAccounts.map(function (item) {
-                return item.accountNumber;
-            })).size !== savedAccounts.length) {
-                throw new Error("Saved account data contains duplicate account numbers.");
+        }
+
+        function saveApplications() {
+            if (!applicationStorageAvailable) {
+                setPersistenceError("Applications cannot be saved because previously saved application data could not be loaded.");
+                return false;
             }
 
-            savedAccounts.forEach(function (account) {
-                if (!account.accountType) {
-                    account.accountType = "Savings";
+            try {
+                localStorage.setItem(applicationStorageKey, JSON.stringify(applications));
+                return true;
+            } catch (error) {
+                setPersistenceError("Could not save application data in this browser. The application was not submitted.");
+                return false;
+            }
+        }
+
+        function loadApplications() {
+            try {
+                const savedData = localStorage.getItem(applicationStorageKey);
+                if (savedData === null) {
+                    return;
                 }
-                if (!account.country) {
-                    account.country = "United States";
+
+                const savedApplications = JSON.parse(savedData);
+                if (!Array.isArray(savedApplications) || savedApplications.some(function (item) {
+                    return !item
+                        || typeof item.id !== "string"
+                        || !products.includes(item.product)
+                        || !accountTypes.includes(item.accountType)
+                        || item.status !== "Pending"
+                        || typeof item.appliedAt !== "string"
+                        || !Number.isFinite(Date.parse(item.appliedAt));
+                })) {
+                    throw new Error("Saved application data has an invalid format.");
                 }
-                account.currencyCode = findCountry(account.country).currency;
-                if (account.contactNumber === undefined) {
-                    account.contactNumber = "";
+
+                const sanitizedApplications = savedApplications.map(function (item) {
+                    return {
+                        id: item.id,
+                        accountType: item.accountType,
+                        product: item.product,
+                        status: item.status,
+                        appliedAt: item.appliedAt
+                    };
+                });
+
+                applications.push.apply(applications, sanitizedApplications);
+                if (savedApplications.some(function (item) {
+                    return Object.prototype.hasOwnProperty.call(item, "accountNumber");
+                })) {
+                    localStorage.setItem(applicationStorageKey, JSON.stringify(applications));
+                }
+            } catch (error) {
+                applicationStorageAvailable = false;
+                setPersistenceError("Could not load saved applications from this browser. Existing application data has not been changed.");
+            }
+        }
+
+        function isProductEligible(accountType, product) {
+            if (product === "Debit Card") {
+                return true;
+            }
+            return accountType !== "Zero Balance";
+        }
+
+        function updateApplicationProcess() {
+            const accountType = applyAccountTypePicker.value;
+            const product = applyProductPicker.value;
+
+            applyMessage.textContent = "";
+            applyProcess.hidden = true;
+
+            Array.from(applyProductPicker.options).forEach(function (option) {
+                if (option.value) {
+                    option.disabled = Boolean(accountType) && !isProductEligible(accountType, option.value);
                 }
             });
-            accounts.push.apply(accounts, savedAccounts);
-        } catch (error) {
-            storageAvailable = false;
-            setPersistenceError("Could not load saved accounts from this browser. Existing data has not been changed.");
-        }
-    }
 
-    function saveApplications() {
-        if (!applicationStorageAvailable) {
-            setPersistenceError("Applications cannot be saved because previously saved application data could not be loaded.");
-            return false;
-        }
-
-        try {
-            localStorage.setItem(applicationStorageKey, JSON.stringify(applications));
-            return true;
-        } catch (error) {
-            setPersistenceError("Could not save application data in this browser. The application was not submitted.");
-            return false;
-        }
-    }
-
-    function loadApplications() {
-        try {
-            const savedData = localStorage.getItem(applicationStorageKey);
-            if (savedData === null) {
+            if (!accountTypes.includes(accountType) || !products.includes(product)) {
                 return;
             }
 
-            const savedApplications = JSON.parse(savedData);
-            if (!Array.isArray(savedApplications) || savedApplications.some(function (item) {
-                return !item
-                    || typeof item.id !== "string"
-                    || !products.includes(item.product)
-                    || !accountTypes.includes(item.accountType)
-                    || item.status !== "Pending"
-                    || typeof item.appliedAt !== "string"
-                    || !Number.isFinite(Date.parse(item.appliedAt));
-            })) {
-                throw new Error("Saved application data has an invalid format.");
+            if (!isProductEligible(accountType, product)) {
+                applyMessage.textContent = product + " is not available for the " + accountType + " account in this demo. You can still apply for a Debit Card.";
+                return;
             }
 
-            const sanitizedApplications = savedApplications.map(function (item) {
-                return {
-                    id: item.id,
-                    accountType: item.accountType,
-                    product: item.product,
-                    status: item.status,
-                    appliedAt: item.appliedAt
-                };
+            const eligibility = {
+                "Debit Card": accountType === "Zero Balance"
+                    ? "Demo eligibility: Debit Card requests are available for Zero Balance accounts. The real bank may require an active account, completed KYC, and verified contact details."
+                    : "Demo eligibility: Debit Card requests are available for " + accountType + " accounts. The real bank may require an active account, completed KYC, and verified contact details.",
+                "Credit Card": "Demo eligibility: Savings and Current accounts may submit a request. An account type alone does not qualify anyone for credit. A real bank may assess age, income, credit history, existing obligations, and repayment capacity before any credit is offered.",
+                "Cheque Book": "Demo eligibility: Savings and Current accounts may request a cheque book. A real bank may verify the account status, KYC, account permissions, and delivery details."
+            };
+
+            const steps = {
+                "Debit Card": [
+                    "Choose the account type for which you want to request a debit card.",
+                    "The bank verifies the account status, identity/KYC, and registered contact details.",
+                    "The bank reviews the request and informs you if it is approved or needs more information.",
+                    "If approved, the card is issued or delivered using the bank's process.",
+                    "Activate it only through the bank's official app, ATM, or branch, and set your PIN privately."
+                ],
+                "Credit Card": [
+                    "Choose an account type for this demo request; this does not guarantee credit approval.",
+                    "The bank collects any required application details through its own secure official channel.",
+                    "The bank verifies identity/KYC and may review income, employment, credit history, existing obligations, and repayment capacity.",
+                    "The bank decides the credit limit, interest, fees, and terms, then asks you to review and accept them if approved.",
+                    "After acceptance, the bank issues the card. Activate it through the bank's official channel and pay bills by their due dates."
+                ],
+                "Cheque Book": [
+                    "Choose Savings or Current as the account type for the cheque book request.",
+                    "The bank verifies the account is active, eligible, and has completed KYC.",
+                    "The bank confirms the number of leaves, any applicable charges, and delivery or collection method.",
+                    "The bank processes the request and notifies you when the cheque book is dispatched or ready.",
+                    "On receipt, keep it secure and report any loss to the bank immediately."
+                ]
+            };
+
+            document.getElementById("apply-process-heading").textContent = product + " application — " + accountType + " account";
+            document.getElementById("apply-eligibility").textContent = eligibility[product];
+            const stepList = document.getElementById("apply-steps");
+            stepList.replaceChildren();
+            steps[product].forEach(function (step) {
+                const listItem = document.createElement("li");
+                listItem.textContent = step;
+                stepList.append(listItem);
             });
-            applications.push.apply(applications, sanitizedApplications);
-            if (savedApplications.some(function (item) {
-                return Object.prototype.hasOwnProperty.call(item, "accountNumber");
-            })) {
-                localStorage.setItem(applicationStorageKey, JSON.stringify(applications));
-            }
-        } catch (error) {
-            applicationStorageAvailable = false;
-            setPersistenceError("Could not load saved applications from this browser. Existing application data has not been changed.");
-        }
-    }
-
-    function isProductEligible(accountType, product) {
-        if (product === "Debit Card") {
-            return true;
-        }
-        return accountType !== "Zero Balance";
-    }
-
-    function updateApplicationProcess() {
-        const accountType = applyAccountTypePicker.value;
-        const product = applyProductPicker.value;
-
-        applyMessage.textContent = "";
-        applyProcess.hidden = true;
-        Array.from(applyProductPicker.options).forEach(function (option) {
-            if (option.value) {
-                option.disabled = Boolean(accountType)
-                    && !isProductEligible(accountType, option.value);
-            }
-        });
-
-        if (!accountTypes.includes(accountType) || !products.includes(product)) {
-            return;
-        }
-        if (!isProductEligible(accountType, product)) {
-            applyMessage.textContent = product + " is not available for the " + accountType
-                + " account in this demo. You can still apply for a Debit Card.";
-            return;
+            applyProcess.hidden = false;
         }
 
-        const eligibility = {
-            "Debit Card": accountType === "Zero Balance"
-                ? "Demo eligibility: Debit Card requests are available for Zero Balance accounts. The real bank may require an active account, completed KYC, and verified contact details."
-                : "Demo eligibility: Debit Card requests are available for " + accountType
-                    + " accounts. The real bank may require an active account, completed KYC, and verified contact details.",
-            "Credit Card": "Demo eligibility: Savings and Current accounts may submit a request. An account type alone does not qualify anyone for credit. A real bank may assess age, income, credit history, repayment capacity, identity/KYC, and its own policy.",
-            "Cheque Book": "Demo eligibility: Savings and Current accounts may request a cheque book. A real bank may verify the account status, KYC, account permissions, and delivery details."
-        };
-        const steps = {
-            "Debit Card": [
-                "Choose the account type for which you want to request a debit card.",
-                "The bank verifies the account status, identity/KYC, and registered contact details.",
-                "The bank reviews the request and informs you if it is approved or needs more information.",
-                "If approved, the card is issued or delivered using the bank's process.",
-                "Activate it only through the bank's official app, ATM, or branch, and set your PIN privately."
-            ],
-            "Credit Card": [
-                "Choose an account type for this demo request; this does not guarantee credit approval.",
-                "The bank collects any required application details through its own secure official channel.",
-                "The bank verifies identity/KYC and may review income, employment, credit history, existing obligations, and repayment capacity.",
-                "The bank decides the credit limit, interest, fees, and terms, then asks you to review and accept them if approved.",
-                "After acceptance, the bank issues the card. Activate it through the bank's official channel and pay bills by their due dates."
-            ],
-            "Cheque Book": [
-                "Choose Savings or Current as the account type for the cheque book request.",
-                "The bank verifies the account is active, eligible, and has completed KYC.",
-                "The bank confirms the number of leaves, any applicable charges, and delivery or collection method.",
-                "The bank processes the request and notifies you when the cheque book is dispatched or ready.",
-                "On receipt, keep it secure and report any loss to the bank immediately."
-            ]
-        };
-
-        document.getElementById("apply-process-heading").textContent =
-            product + " application — " + accountType + " account";
-        document.getElementById("apply-eligibility").textContent = eligibility[product];
-        const stepList = document.getElementById("apply-steps");
-        stepList.replaceChildren();
-        steps[product].forEach(function (step) {
-            const listItem = document.createElement("li");
-            listItem.textContent = step;
-            stepList.append(listItem);
-        });
-        applyProcess.hidden = false;
-    }
-
-    function showPage(page) {
-        homeSection.hidden = page !== "home";
-        createSection.hidden = page !== "add";
-        lookupSection.hidden = page !== "check";
-        applySection.hidden = page !== "apply";
-        convertSection.hidden = page !== "convert";
-        accountSection.hidden = true;
-        message.textContent = "";
-    }
-
-    function formatMoney(cents, currencyCode) {
-        return new Intl.NumberFormat(undefined, {
-            style: "currency",
-            currency: currencyCode || "USD"
-        }).format(cents / 100);
-    }
-
-    function findCountry(countryName) {
-        return countries.find(function (country) {
-            return country.name === countryName;
-        });
-    }
-
-    function populateCountryOptions(select) {
-        countries.forEach(function (country) {
-            const option = document.createElement("option");
-            option.value = country.name;
-            option.textContent = country.name + " (" + country.currency + ")";
-            select.append(option);
-        });
-    }
-
-    function normalizePhone(value) {
-        return value.replace(/\D/g, "");
-    }
-
-    function maskPhone(phoneNumber) {
-        const digits = normalizePhone(phoneNumber);
-        return digits.length < 5 ? "Not registered" : "••••••" + digits.slice(-4);
-    }
-
-    function updateOpeningBalanceRequirement() {
-        const accountType = accountTypeInput.value;
-        const minimumInCents = minimumOpeningBalanceInCents[accountType];
-        const country = findCountry(countryInput.value);
-        const wasZeroBalance = openingBalanceInput.readOnly;
-        const isZeroBalance = accountType === "Zero Balance";
-
-        contactPrefixInput.value = country ? country.dialCode : "";
-        openingBalanceInput.readOnly = isZeroBalance;
-        if (isZeroBalance) {
-            openingBalanceInput.value = "0";
-        } else if (wasZeroBalance && openingBalanceInput.value === "0") {
-            openingBalanceInput.value = "";
-        }
-
-        if (minimumInCents === undefined) {
-            openingBalanceInput.min = "0";
-            document.getElementById("opening-balance-guidance").textContent =
-                "Select an account type to see its minimum opening balance.";
-            return;
-        }
-
-        openingBalanceInput.min = (minimumInCents / 100).toFixed(2);
-        document.getElementById("opening-balance-guidance").textContent =
-            "Minimum opening balance for " + accountType + ": "
-            + formatMoney(minimumInCents, country ? country.currency : "USD") + ".";
-    }
-
-    function showMessage(text, kind) {
-        message.textContent = text;
-        message.dataset.kind = kind;
-    }
-
-    function renderSelectedAccount() {
-        const account = accounts.find(function (item) {
-            return item.accountNumber === selectedAccountNumber;
-        });
-        if (!account) {
+        function showPage(page) {
+            homeSection.hidden = page !== "home";
+            createSection.hidden = page !== "add";
+            lookupSection.hidden = page !== "check";
+            applySection.hidden = page !== "apply";
+            convertSection.hidden = page !== "convert";
             accountSection.hidden = true;
-            return;
+            message.textContent = "";
         }
 
-        accountSection.hidden = false;
-        document.getElementById("display-name").textContent = account.holderName;
-        document.getElementById("display-number").textContent = account.accountNumber;
-        document.getElementById("display-type").textContent = account.accountType;
-        document.getElementById("display-country").textContent =
-            account.country + " (" + account.currencyCode + ")";
-        document.getElementById("display-contact").textContent = maskPhone(account.contactNumber);
-        document.getElementById("display-balance").textContent =
-            formatMoney(account.balanceInCents, account.currencyCode);
-    }
+        function formatMoney(cents, currencyCode) {
+            return new Intl.NumberFormat(undefined, {
+                style: "currency",
+                currency: currencyCode || "USD"
+            }).format(cents / 100);
+        }
 
-    countryInput.addEventListener("change", updateOpeningBalanceRequirement);
-    accountTypeInput.addEventListener("change", function () {
-        updateOpeningBalanceRequirement();
-    });
+        function findCountry(countryName) {
+            return countries.find(function (country) {
+                return country.name === countryName;
+            });
+        }
 
-    document.getElementById("open-add").addEventListener("click", function () {
-        createMessage.textContent = "";
-        showPage("add");
-        nameInput.focus();
-    });
+        function populateCountryOptions(select) {
+            select.innerHTML = "<option value=\"\">Select country</option>";
+            countries.forEach(function (country) {
+                const option = document.createElement("option");
+                option.value = country.name;
+                option.textContent = country.name + " (" + country.currency + ")";
+                select.append(option);
+            });
+        }
 
-    document.getElementById("open-check").addEventListener("click", function () {
-        lookupMessage.textContent = "";
-        showPage("check");
-        lookupNameInput.focus();
-    });
+        function normalizePhone(value) {
+            return (value || "").replace(/\D/g, "");
+        }
 
-    document.getElementById("open-apply").addEventListener("click", function () {
-        showPage("apply");
-        applyMessage.textContent = "";
-        updateApplicationProcess();
-    });
+        function maskPhone(phoneNumber) {
+            const digits = normalizePhone(phoneNumber);
+            return digits.length < 5 ? "Not registered" : "••••••" + digits.slice(-4);
+        }
 
-    document.getElementById("open-convert").addEventListener("click", function () {
-        showPage("convert");
-        convertResult.hidden = true;
-        convertAmountInput.focus();
-    });
+        function updateOpeningBalanceRequirement() {
+            const accountType = accountTypeInput.value;
+            const minimumInCents = minimumOpeningBalanceInCents[accountType];
+            const country = findCountry(countryInput.value);
+            const wasZeroBalance = openingBalanceInput.readOnly;
+            const isZeroBalance = accountType === "Zero Balance";
 
-    document.getElementById("add-home").addEventListener("click", function () {
-        showPage("home");
-    });
+            contactPrefixInput.value = country ? country.dialCode : "";
+            openingBalanceInput.readOnly = isZeroBalance;
 
-    document.getElementById("check-home").addEventListener("click", function () {
-        showPage("home");
-    });
+            if (isZeroBalance) {
+                openingBalanceInput.value = "0";
+            } else if (wasZeroBalance && openingBalanceInput.value === "0") {
+                openingBalanceInput.value = "";
+            }
 
-    document.getElementById("apply-home").addEventListener("click", function () {
-        showPage("home");
-    });
+            if (minimumInCents === undefined) {
+                openingBalanceInput.min = "0";
+                document.getElementById("opening-balance-guidance").textContent = "Select an account type to see its minimum opening balance.";
+                return;
+            }
 
-    document.getElementById("convert-home").addEventListener("click", function () {
-        showPage("home");
-    });
+            openingBalanceInput.min = (minimumInCents / 100).toFixed(2);
+            document.getElementById("opening-balance-guidance").textContent = "Minimum opening balance for " + accountType + ": " + formatMoney(minimumInCents, country ? country.currency : "USD") + ".";
+        }
 
-    convertForm.addEventListener("submit", function (event) {
-        event.preventDefault();
+        function getRandomId() {
+            if (window.crypto && typeof window.crypto.randomUUID === "function") {
+                return window.crypto.randomUUID();
+            }
+            return "app-" + Date.now() + "-" + Math.random().toString(16).slice(2);
+        }
 
-        const amountText = convertAmountInput.value.trim();
-        const amount = Number(amountText);
-        const fromCountry = findCountry(convertFromPicker.value);
-        const toCountry = findCountry(convertToPicker.value);
+        function renderSelectedAccount() {
+            const account = accounts.find(function (item) {
+                return item.accountNumber === selectedAccountNumber;
+            });
 
-        if (!/^\d+(\.\d{1,2})?$/.test(amountText)
-                || !Number.isFinite(amount)
-                || amount <= 0
-                || !fromCountry
-                || !toCountry) {
-            convertResult.textContent = "Enter a valid amount and choose both countries.";
+            if (!account) {
+                accountSection.hidden = true;
+                return;
+            }
+
+            accountSection.hidden = false;
+            document.getElementById("display-name").textContent = account.holderName;
+            document.getElementById("display-number").textContent = account.accountNumber;
+            document.getElementById("display-type").textContent = account.accountType;
+            document.getElementById("display-country").textContent = account.country + " (" + account.currencyCode + ")";
+            document.getElementById("display-contact").textContent = maskPhone(account.contactNumber);
+            document.getElementById("display-balance").textContent = formatMoney(account.balanceInCents, account.currencyCode);
+        }
+
+        function initializeApp() {
+            populateCountryOptions(countryInput);
+            populateCountryOptions(lookupCountryInput);
+            populateCountryOptions(convertFromPicker);
+            populateCountryOptions(convertToPicker);
+            loadAccounts();
+            loadApplications();
+            updateOpeningBalanceRequirement();
+            showPage("home");
+        }
+
+        countryInput.addEventListener("change", updateOpeningBalanceRequirement);
+        accountTypeInput.addEventListener("change", updateOpeningBalanceRequirement);
+
+        document.getElementById("open-add").addEventListener("click", function () {
+            createMessage.textContent = "";
+            showPage("add");
+            nameInput.focus();
+        });
+
+        document.getElementById("open-check").addEventListener("click", function () {
+            lookupMessage.textContent = "";
+            showPage("check");
+            lookupNameInput.focus();
+        });
+
+        document.getElementById("open-apply").addEventListener("click", function () {
+            showPage("apply");
+            applyMessage.textContent = "";
+            updateApplicationProcess();
+        });
+
+        document.getElementById("open-convert").addEventListener("click", function () {
+            showPage("convert");
+            convertResult.hidden = true;
+            convertAmountInput.focus();
+        });
+
+        document.getElementById("add-home").addEventListener("click", function () {
+            showPage("home");
+        });
+
+        document.getElementById("check-home").addEventListener("click", function () {
+            showPage("home");
+        });
+
+        document.getElementById("apply-home").addEventListener("click", function () {
+            showPage("home");
+        });
+
+        document.getElementById("convert-home").addEventListener("click", function () {
+            showPage("home");
+        });
+
+        convertForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const amountText = convertAmountInput.value.trim();
+            const amount = Number(amountText);
+            const fromCountry = findCountry(convertFromPicker.value);
+            const toCountry = findCountry(convertToPicker.value);
+
+            if (!/^\d+(\.\d{1,2})?$/.test(amountText) || !Number.isFinite(amount) || amount <= 0 || !fromCountry || !toCountry) {
+                convertResult.textContent = "Enter a valid amount and choose both countries.";
+                convertResult.hidden = false;
+                return;
+            }
+
+            const convertedAmount = amount / fromCountry.perUsd * toCountry.perUsd;
+            const formattedSource = new Intl.NumberFormat(undefined, {
+                style: "currency",
+                currency: fromCountry.currency
+            }).format(amount);
+            const formattedTarget = new Intl.NumberFormat(undefined, {
+                style: "currency",
+                currency: toCountry.currency
+            }).format(convertedAmount);
+
+            convertResult.textContent = formattedSource + " = " + formattedTarget + " (illustrative demo rate)";
             convertResult.hidden = false;
-            return;
-        }
-
-        const convertedAmount = amount / fromCountry.perUsd * toCountry.perUsd;
-        const formattedSource = new Intl.NumberFormat(undefined, {
-            style: "currency",
-            currency: fromCountry.currency
-        }).format(amount);
-        const formattedTarget = new Intl.NumberFormat(undefined, {
-            style: "currency",
-            currency: toCountry.currency
-        }).format(convertedAmount);
-        convertResult.textContent = formattedSource + " = " + formattedTarget
-            + " (illustrative demo rate)";
-        convertResult.hidden = false;
-    });
-
-    applyAccountTypePicker.addEventListener("change", updateApplicationProcess);
-    applyProductPicker.addEventListener("change", updateApplicationProcess);
-
-    applyForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        const accountType = applyAccountTypePicker.value;
-        const product = applyProductPicker.value;
-
-        if (!accountTypes.includes(accountType)) {
-            applyMessage.textContent = "Select an account type before applying.";
-            return;
-        }
-        if (!products.includes(product)) {
-            applyMessage.textContent = "Select a product to apply for.";
-            return;
-        }
-        if (!isProductEligible(accountType, product)) {
-            applyMessage.textContent = product + " is not available for the " + accountType
-                + " account in this demo.";
-            return;
-        }
-
-        const application = {
-            id: window.crypto.randomUUID(),
-            accountType: accountType,
-            product: product,
-            status: "Pending",
-            appliedAt: new Date().toISOString()
-        };
-        applications.push(application);
-        if (!saveApplications()) {
-            applications.pop();
-            applyMessage.textContent = "The application was not submitted because it could not be saved.";
-            return;
-        }
-
-        applyMessage.textContent = "Demo request submitted and saved as Pending. It has not been sent to a real bank.";
-    });
-
-    lookupForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        const holderName = lookupNameInput.value.trim().toLocaleLowerCase();
-        const accountNumber = lookupNumberInput.value.trim();
-        const country = findCountry(lookupCountryInput.value);
-        const contactNumber = normalizePhone(lookupContactInput.value);
-        const account = accounts.find(function (item) {
-            const registeredPhone = normalizePhone(item.contactNumber || "");
-            return country
-                && item.country === country.name
-                && item.accountNumber === accountNumber
-                && item.holderName.toLocaleLowerCase() === holderName
-                && registeredPhone.length > 0
-                && registeredPhone === contactNumber;
         });
 
-        accountSection.hidden = true;
-        message.textContent = "";
+        applyAccountTypePicker.addEventListener("change", updateApplicationProcess);
+        applyProductPicker.addEventListener("change", updateApplicationProcess);
 
-        if (!account) {
-            lookupMessage.textContent = "No matching account found. Verify the country, holder name, account number, and registered contact number.";
-            return;
-        }
+        applyForm.addEventListener("submit", function (event) {
+            event.preventDefault();
 
-        selectedAccountNumber = account.accountNumber;
-        renderSelectedAccount();
-        lookupMessage.textContent = "Account found.";
-    });
+            const accountType = applyAccountTypePicker.value;
+            const product = applyProductPicker.value;
 
-    createForm.addEventListener("submit", function (event) {
-        event.preventDefault();
+            if (!accountTypes.includes(accountType)) {
+                applyMessage.textContent = "Select an account type before applying.";
+                return;
+            }
+            if (!products.includes(product)) {
+                applyMessage.textContent = "Select a product to apply for.";
+                return;
+            }
+            if (!isProductEligible(accountType, product)) {
+                applyMessage.textContent = product + " is not available for the " + accountType + " account in this demo.";
+                return;
+            }
 
-        const holderName = nameInput.value.trim();
-        const accountNumber = numberInput.value.trim();
-        const country = findCountry(countryInput.value);
-        const contactNumber = contactNumberInput.value.trim();
-        const accountType = accountTypeInput.value;
-        const rawOpeningBalance = openingBalanceInput.value.trim();
-        const openingBalance = Number(rawOpeningBalance);
-        const openingBalanceInCents = Math.round(openingBalance * 100);
+            const application = {
+                id: getRandomId(),
+                accountType: accountType,
+                product: product,
+                status: "Pending",
+                appliedAt: new Date().toISOString()
+            };
 
-        if (!holderName) {
-            createMessage.textContent = "Enter the account holder name.";
-            return;
-        }
-        if (!/^\d{1,20}$/.test(accountNumber)) {
-            createMessage.textContent = "Enter an account number containing 1 to 20 digits.";
-            return;
-        }
-        if (!country) {
-            createMessage.textContent = "Select a valid country.";
-            return;
-        }
-        if (!/^\d{6,12}$/.test(contactNumber)) {
-            createMessage.textContent = "Enter a contact number with 6 to 12 digits, without the country code.";
-            return;
-        }
-        if (!accountTypes.includes(accountType)) {
-            createMessage.textContent = "Select a valid account type.";
-            return;
-        }
-        if (!/^\d+(\.\d{1,2})?$/.test(rawOpeningBalance)
-                || !Number.isFinite(openingBalance)
-                || openingBalance < 0
-                || !Number.isSafeInteger(openingBalanceInCents)) {
-            createMessage.textContent = "Enter a valid opening balance with no more than two decimal places.";
-            return;
-        }
-        if (openingBalanceInCents < minimumOpeningBalanceInCents[accountType]) {
-            createMessage.textContent = "The minimum opening balance for " + accountType
-                + " accounts is " + formatMoney(
-                    minimumOpeningBalanceInCents[accountType],
-                    country.currency
-                ) + ".";
-            return;
-        }
-        if (accounts.some(function (item) {
-            return item.accountNumber === accountNumber;
-        })) {
-            createMessage.textContent = "That account number is already in use. Enter a different number.";
-            return;
-        }
+            applications.push(application);
+            if (!saveApplications()) {
+                applications.pop();
+                applyMessage.textContent = "The application was not submitted because it could not be saved.";
+                return;
+            }
 
-        const account = {
-            holderName: holderName,
-            accountNumber: accountNumber,
-            country: country.name,
-            currencyCode: country.currency,
-            contactNumber: country.dialCode + contactNumber,
-            accountType: accountType,
-            balanceInCents: openingBalanceInCents
-        };
-        accounts.push(account);
-        if (!saveAccounts()) {
-            accounts.pop();
-            createMessage.textContent = "Account was not added because it could not be saved.";
-            return;
-        }
-        selectedAccountNumber = account.accountNumber;
-
-        createForm.reset();
-        openingBalanceInput.readOnly = false;
-        updateOpeningBalanceRequirement();
-        createMessage.textContent = "Account added and saved successfully.";
-        lookupMessage.textContent = "";
-        nameInput.focus();
-    });
-
-    transactionForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-        const action = event.submitter ? event.submitter.value : "";
-        const rawAmount = amountInput.value.trim();
-        const amount = Number(rawAmount);
-        const amountInCents = Math.round(amount * 100);
-        const account = accounts.find(function (item) {
-            return item.accountNumber === selectedAccountNumber;
+            applyMessage.textContent = "Demo request submitted and saved as Pending. It has not been sent to a real bank.";
         });
 
-        if (!account) {
-            showMessage("Create an account before making a transaction.", "error");
-            return;
-        }
-        if (!/^\d+(\.\d{1,2})?$/.test(rawAmount)
-                || !Number.isFinite(amount)
-                || amount <= 0
-                || !Number.isSafeInteger(amountInCents)
-                || amountInCents <= 0) {
-            showMessage("Enter a positive amount with no more than two decimal places.", "error");
-            return;
-        }
-        if (action === "withdraw" && amountInCents > account.balanceInCents) {
-            showMessage("Insufficient funds. Your balance has not changed.", "error");
-            return;
-        }
-        if (action !== "deposit" && action !== "withdraw") {
-            showMessage("Choose deposit or withdrawal.", "error");
-            return;
-        }
+        lookupForm.addEventListener("submit", function (event) {
+            event.preventDefault();
 
-        const previousBalance = account.balanceInCents;
-        account.balanceInCents += action === "deposit" ? amountInCents : -amountInCents;
-        if (!saveAccounts()) {
-            account.balanceInCents = previousBalance;
+            const holderName = lookupNameInput.value.trim().toLocaleLowerCase();
+            const accountNumber = lookupNumberInput.value.trim();
+            const country = findCountry(lookupCountryInput.value);
+            const contactNumber = normalizePhone(lookupContactInput.value);
+            const account = accounts.find(function (item) {
+                const registeredPhone = normalizePhone(item.contactNumber || "");
+                return country
+                    && item.country === country.name
+                    && item.accountNumber === accountNumber
+                    && item.holderName.toLocaleLowerCase() === holderName
+                    && registeredPhone.length > 0
+                    && registeredPhone === contactNumber;
+            });
+
+            accountSection.hidden = true;
+            message.textContent = "";
+
+            if (!account) {
+                lookupMessage.textContent = "No matching account found. Verify the country, holder name, account number, and registered contact number.";
+                return;
+            }
+
+            selectedAccountNumber = account.accountNumber;
             renderSelectedAccount();
-            showMessage("Transaction was not completed because it could not be saved.", "error");
-            return;
-        }
-        renderSelectedAccount();
-        showMessage(
-            (action === "deposit" ? "Deposit" : "Withdrawal")
-                + " successful for account " + account.accountNumber
-                + ". New balance: "
-                + formatMoney(account.balanceInCents, account.currencyCode),
-            "success"
-        );
-        transactionForm.reset();
-        amountInput.focus();
-    });
+            lookupMessage.textContent = "Account found.";
+        });
 
-    populateCountryOptions(countryInput);
-    populateCountryOptions(lookupCountryInput);
-    populateCountryOptions(convertFromPicker);
-    populateCountryOptions(convertToPicker);
-    loadAccounts();
-    loadApplications();
-    if (storageAvailable && applicationStorageAvailable) {
-        persistenceMessage.textContent = "Accounts will be saved in this browser on this device.";
-        persistenceMessage.dataset.kind = "success";
-    }
-</script>
+        createForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const holderName = nameInput.value.trim();
+            const accountNumber = numberInput.value.trim();
+            const country = findCountry(countryInput.value);
+            const contactNumber = contactNumberInput.value.trim();
+            const accountType = accountTypeInput.value;
+            const rawOpeningBalance = openingBalanceInput.value.trim();
+            const openingBalance = Number(rawOpeningBalance);
+            const openingBalanceInCents = Math.round(openingBalance * 100);
+
+            if (!holderName) {
+                createMessage.textContent = "Enter the account holder name.";
+                return;
+            }
+            if (!/^\d{1,20}$/.test(accountNumber)) {
+                createMessage.textContent = "Enter an account number containing 1 to 20 digits.";
+                return;
+            }
+            if (!country) {
+                createMessage.textContent = "Select a valid country.";
+                return;
+            }
+            if (!/^\d{6,12}$/.test(contactNumber)) {
+                createMessage.textContent = "Enter a contact number with 6 to 12 digits, without the country code.";
+                return;
+            }
+            if (!accountTypes.includes(accountType)) {
+                createMessage.textContent = "Select an account type.";
+                return;
+            }
+            if (!Number.isFinite(openingBalance) || openingBalance < 0) {
+                createMessage.textContent = "Enter a valid opening balance.";
+                return;
+            }
+
+            const minimumBalance = minimumOpeningBalanceInCents[accountType] || 0;
+            if (openingBalanceInCents < minimumBalance) {
+                createMessage.textContent = "Opening balance must be at least " + formatMoney(minimumBalance, country.currency) + ".";
+                return;
+            }
+
+            const existingAccount = accounts.find(function (item) {
+                return item.accountNumber === accountNumber;
+            });
+            if (existingAccount) {
+                createMessage.textContent = "This account number already exists.";
+                return;
+            }
+
+            const account = {
+                holderName: holderName,
+                accountNumber: accountNumber,
+                country: country.name,
+                contactNumber: country.dialCode + contactNumber,
+                accountType: accountType,
+                balanceInCents: openingBalanceInCents,
+                currencyCode: country.currency
+            };
+
+            accounts.push(account);
+            if (!saveAccounts()) {
+                accounts.pop();
+                createMessage.textContent = "The account was not created because it could not be saved.";
+                return;
+            }
+
+            createForm.reset();
+            updateOpeningBalanceRequirement();
+            createMessage.textContent = "Account created successfully.";
+            createMessage.dataset.kind = "success";
+        });
+
+        transactionForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const account = accounts.find(function (item) {
+                return item.accountNumber === selectedAccountNumber;
+            });
+
+            if (!account) {
+                message.textContent = "Select a valid account first.";
+                message.dataset.kind = "error";
+                return;
+            }
+
+            const enteredAmount = Number(amountInput.value);
+            const action = event.submitter ? event.submitter.value : "deposit";
+
+            if (!Number.isFinite(enteredAmount) || enteredAmount <= 0) {
+                message.textContent = "Enter a valid amount greater than zero.";
+                message.dataset.kind = "error";
+                return;
+            }
+
+            const amountInCents = Math.round(enteredAmount * 100);
+
+            if (action === "withdraw" && account.balanceInCents < amountInCents) {
+                message.textContent = "Insufficient funds for this withdrawal.";
+                message.dataset.kind = "error";
+                return;
+            }
+
+            account.balanceInCents += action === "deposit" ? amountInCents : -amountInCents;
+            if (!saveAccounts()) {
+                account.balanceInCents -= action === "deposit" ? amountInCents : -amountInCents;
+                message.textContent = "The transaction could not be saved.";
+                message.dataset.kind = "error";
+                return;
+            }
+
+            renderSelectedAccount();
+            amountInput.value = "";
+            message.textContent = action === "deposit" ? "Deposit completed." : "Withdrawal completed.";
+            message.dataset.kind = "success";
+        });
+
+        initializeApp();
+    </script>
 </body>
 </html>
